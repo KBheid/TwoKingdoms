@@ -32,7 +32,8 @@ public class MinionPlayedCommand : Command
 		_owner._cardHolder = _cardHolder;
 		_owner.played = true;
 
-		MoneyMaster.instance.TakeMoney(_owner.cost);
+		if (!_cardHolder.enemyHolder)
+			MoneyMaster.instance.TakeMoney(_owner.cost);
 	}
 
 	public override void Undo()
@@ -50,7 +51,8 @@ public class MinionPlayedCommand : Command
 		_owner.transform.SetParent(_hand);
 		_owner.transform.localScale = Vector2.one * 0.5f;
 
-		MoneyMaster.instance.AddMoney(_owner.cost);
+		if (!_cardHolder.enemyHolder)
+			MoneyMaster.instance.AddMoney(_owner.cost);
 
 		_owner.GetComponent<CardUI>().UpdateUI();
 	}

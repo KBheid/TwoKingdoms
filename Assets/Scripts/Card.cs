@@ -9,6 +9,7 @@ public class Card : MonoBehaviour
     public int health;
     public int cost;
     public Sprite cardImage;
+    public Color backgroundColor;
 
     //public List<Effect> effects;
     public Effect[] effects;
@@ -27,9 +28,7 @@ public class Card : MonoBehaviour
 
     private void Start()
     {
-        _cardUI = GetComponent<CardUI>();
         _cardUI.SetCard(this);
-        _cardUI.UpdateUI();
 	}
 
     public void PlayWithoutEvent(CardHolder ch)
@@ -39,6 +38,7 @@ public class Card : MonoBehaviour
 
         // Do play effects
         _cardHolder = ch;
+        _cardUI.SetCard(this);
 
         CheckAndDoEffects(Effect.EffectType.Battlecry);
 

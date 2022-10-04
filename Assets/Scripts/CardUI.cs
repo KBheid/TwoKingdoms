@@ -11,9 +11,12 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     public Text costText;
     public Text attackText;
     public Text healthText;
+    public Image backgroundColor;
 
     public Image image;
     public AudioClip hoverToPlayAudio;
+
+    public bool hoverable = true;
 
     private Card _referencedCard;
     private Canvas _canvas;
@@ -42,6 +45,9 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
 	private void Update()
 	{
+        if (_referencedCard == null)
+            return;
+
 
 		#region SFX
 		if (hoverToPlayAudio == null || audioPlayer == null)
@@ -78,6 +84,8 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         costText.text           = _referencedCard.cost.ToString();
         attackText.text         = _referencedCard.attack.ToString();
         healthText.text         = _referencedCard.health.ToString();
+
+        backgroundColor.color   = _referencedCard.backgroundColor;
 
         image.sprite            = _referencedCard.cardImage;
     }
@@ -159,7 +167,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     #region OnHover
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_dragging)
+        if (_dragging || !hoverable)
             return;
 
         _hoverStartScale = transform.localScale;
@@ -181,7 +189,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (_dragging)
+        if (_dragging || !hoverable)
             return;
 
         transform.localScale = _hoverStartScale;

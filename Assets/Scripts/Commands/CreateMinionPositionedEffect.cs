@@ -17,7 +17,7 @@ public class CreateMinionPositionedEffect : Effect
 
 		foreach (FrontlineHolder ch in flh)
 		{
-			if (ch.name.Contains("Mid") && !ch.enemyHolder && ch.card == null)
+			if (ch.name.Contains("Mid") && ch.enemyHolder == _owner._cardHolder.enemyHolder && ch.card == null)
 			{
 				Card c = Instantiate(cardPrefab).GetComponent<Card>();
 

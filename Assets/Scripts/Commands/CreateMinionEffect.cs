@@ -19,7 +19,7 @@ public class CreateMinionEffect : Effect
 
 		foreach (BacklineHolder ch in blh)
 		{
-			if (!ch.enemyHolder && ch.card == null)
+			if (ch.enemyHolder == _owner._cardHolder.enemyHolder && ch.card == null)
 			{
 				Card c = Instantiate(cardPrefab).GetComponent<Card>();
 				c.Play(ch, false);
